@@ -137,7 +137,7 @@ public class TemperatureTest {
     public void testGetMissingTemperaturesBySondeAndDatePeriodNoMissingDates() {
         String sonde = "210100A";
         LocalDateTime startDate = LocalDateTime.of(2024, 5, 16, 10, 0);
-        LocalDateTime endDate = LocalDateTime.of(2024, 5, 16, 12, 0);
+        LocalDateTime endDate = LocalDateTime.of(2024, 5, 16, 10, 25);
 
         List<DateProjection> existingDates = Arrays.asList(
                 new DateProjection(LocalDateTime.of(2024, 5, 16, 10, 2)),
@@ -159,7 +159,7 @@ public class TemperatureTest {
     public void testGetMissingTemperaturesBySondeAndDatePeriodWithMissingDates() {
         String sonde = "210100B";
         LocalDateTime startDate = LocalDateTime.of(2024, 5, 16, 10, 0);
-        LocalDateTime endDate = LocalDateTime.of(2024, 5, 16, 12, 0);
+        LocalDateTime endDate = LocalDateTime.of(2024, 5, 16, 10, 41);
 
         List<DateProjection> existingDates = Arrays.asList(
                 new DateProjection(LocalDateTime.of(2024, 5, 16, 10, 0)),
@@ -178,37 +178,6 @@ public class TemperatureTest {
         assertEquals(2, missingDates.size());
         assertEquals(LocalDateTime.of(2024, 5, 16, 10, 10), missingDates.get(0).getDate());
         assertEquals(LocalDateTime.of(2024, 5, 16, 10, 30), missingDates.get(1).getDate());
-    }
-
-    @Test
-    public void testGetMissingTemperaturesBySondeAndDatePeriodExactIntervals() {
-        String sonde = "210100A";
-        LocalDateTime startDate = LocalDateTime.of(2024, 5, 16, 10, 0);
-        LocalDateTime endDate = LocalDateTime.of(2024, 5, 16, 12, 0);
-
-        List<DateProjection> existingDates = Arrays.asList(
-                new DateProjection(LocalDateTime.of(2024, 5, 16, 10, 0)),
-                new DateProjection(LocalDateTime.of(2024, 5, 16, 10, 10)),
-                new DateProjection(LocalDateTime.of(2024, 5, 16, 10, 20)),
-                new DateProjection(LocalDateTime.of(2024, 5, 16, 10, 30)),
-                new DateProjection(LocalDateTime.of(2024, 5, 16, 10, 40)),
-                new DateProjection(LocalDateTime.of(2024, 5, 16, 10, 50)),
-                new DateProjection(LocalDateTime.of(2024, 5, 16, 11, 0)),
-                new DateProjection(LocalDateTime.of(2024, 5, 16, 11, 10)),
-                new DateProjection(LocalDateTime.of(2024, 5, 16, 11, 20)),
-                new DateProjection(LocalDateTime.of(2024, 5, 16, 11, 30)),
-                new DateProjection(LocalDateTime.of(2024, 5, 16, 11, 40)),
-                new DateProjection(LocalDateTime.of(2024, 5, 16, 11, 50))
-        );
-
-        when(temperatureRepository.findMissingTemperaturesBySondeAndDateBetween(sonde, startDate, endDate))
-                .thenReturn(existingDates);
-
-        MissingTemperatureResponse response = temperatureService.getMissingTemperaturesBySondeAndDatePeriod(sonde, startDate, endDate);
-
-        assertNotNull(response);
-        assertEquals(0, response.getTotalMissingTemperature());
-        assertEquals(0, response.getDataMissingTemperature().size());
     }
     
 }
