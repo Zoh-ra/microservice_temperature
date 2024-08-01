@@ -42,7 +42,11 @@ public class TemperatureService {
                 .sorted()
                 .collect(Collectors.toList());
 
-        List<LocalDateTime> missingDates = DateTimeUtils.findMissingDates(roundedExistingDates, 10);
+        List<LocalDateTime> allDatesInRange = DateTimeUtils.generateDateRange(startDate, endDate, 10);
+
+        List<LocalDateTime> missingDates = allDatesInRange.stream()
+                .filter(date -> !roundedExistingDates.contains(date))
+                .collect(Collectors.toList());
 
         List<DateProjection> missingTemperatures = missingDates.stream()
                 .map(DateProjection::new)

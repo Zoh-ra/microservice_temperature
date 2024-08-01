@@ -9,6 +9,9 @@ public class DateProjection {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime date;
 
+    public DateProjection() {
+    }
+
     public DateProjection(LocalDateTime date) {
         this.date = date;
     }
