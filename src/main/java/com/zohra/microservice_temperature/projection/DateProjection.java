@@ -24,7 +24,4 @@ public class DateProjection {
         this.date = date;
     }
 
-    public void roundToNearestTen() {
-        this.date = DateTimeUtils.roundMinutesToNearestTen(this.date);
-    }
 }

@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name = "temperature_sonde")
+@Table(name = "temperaturesonde")
 public class Temperature {
 
     @Id
@@ -24,5 +24,4 @@ public class Temperature {
     private LocalDateTime heureReception;
     private Boolean archivage;
     private Integer intervalleMesure;
-
 }
